@@ -14,6 +14,7 @@ logger:
 api:
 
 ota:
+  platform: esphome
   password: !secret ota_password
 
 # Create a switch for safe_mode in order to flash the device
@@ -55,7 +56,7 @@ i2c:
   scl: D1
 
 font:
-  - file: "font/monofont.ttf"
+  - file: "gfonts://Open Sans"
     id: opensans
     size: 10
 
@@ -70,11 +71,11 @@ display:
           it.printf(0, 10, id(opensans), "PM25: %.0f", id(pm25).state);
           it.printf(0, 20, id(opensans), "Hmdty: %.0f", id(humidity).state);
           it.printf(0, 30, id(opensans), "Temp: %.0fC", id(temp).state);
-#      - id: page2
-#        lambda: |-
-#          it.printf(0, 0, id(opensans), "PM10 : %.0f", id(pm10).state);
-#          it.printf(0, 10, id(opensans), "PM25 : %.0f", id(pm25).state);
-#          it.printf(0, 20, id(opensans), "PM100: %.0f", id(pm100).state);
+      - id: page2
+        lambda: |-
+          it.printf(0, 0, id(opensans), "PM10 : %.0f", id(pm10).state);
+          it.printf(0, 10, id(opensans), "PM25 : %.0f", id(pm25).state);
+          it.printf(0, 20, id(opensans), "PM100: %.0f", id(pm100).state);
 # Maybe add a page later
 
 interval:
@@ -110,15 +111,15 @@ sensor:
     # https://esphome.io/components/sensor/pmsx003.html
     type: PMSX003
     uart_id: uart_1
-#    pm_1_0:
-#      id: pm10
-#      name: "Particulate Matter <1.0µm Concentration"
+    pm_1_0:
+      id: pm10
+      name: "Particulate Matter <1.0µm Concentration"
     pm_2_5:
       id: pm25
       name: "Particulate Matter <2.5µm Concentration"
-#    pm_10_0:
-#      id: pm100
-#      name: "Particulate Matter <10.0µm Concentration"
+    pm_10_0:
+      id: pm100
+      name: "Particulate Matter <10.0µm Concentration"
 #    formaldehyde:
 #      id: hcho
 #      name: "Formaldehyde (HCHO) concentration in µg per cubic meter"
